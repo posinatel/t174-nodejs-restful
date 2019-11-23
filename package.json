@@ -2,8 +2,8 @@
   "name": "nodejs-restful",
   "private": true,
   "scripts": {
-    "start": "",
-    "start:dev": ""
+    "start": "node ./src/server",
+    "start:dev": "nodemon ./src/server"
   },
   "dependencies": {
     "cors": "^2.8.5",
