@@ -11,4 +11,13 @@ router.post('/', (request, response) => {
     .json(data);
 });
 
+router.get('/', (request, response) => {
+  const data = {};
+  data.message = `Handling ${request.protocol} ${request.method} for /api/tasks`;
+
+  response
+    .status(200)
+    .json(data)
+});
+
 module.exports = router;
