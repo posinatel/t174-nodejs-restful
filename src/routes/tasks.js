@@ -20,4 +20,15 @@ router.get('/', (request, response) => {
     .json(data)
 });
 
+router.get('/:taskId', (request, response) => {
+  const data = {
+    taskId: request.params.taskId,
+    message: `Handling HTTP GET by ID`
+  }
+
+  response
+    .status(200)
+    .json(data);
+});
+
 module.exports = router;
