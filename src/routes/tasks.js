@@ -1,16 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
+const TaskService = require('../services/TaskService');
 const checkAuth = require('../middleware/check-auth');
 
-router.post('/', checkAuth, (request, response) => {
-  const data = {
-    message: 'Handling HTTP POST request for /api/tasks'
-  };
-
+router.post('/', checkAuth, async (request, response) => {
+  const task = await TaskService.add(request.body);
   response
     .status(200)
-    .json(data);
+    .json(task);
 });
 
 router.get('/', (request, response) => {
