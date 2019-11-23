@@ -37,15 +37,11 @@ router.patch('/:taskId', (request, response) => {
     .json(data);
 });
 
-router.delete('/:taskId', (request, response) => {
-  const data = {
-    taskId: request.params.taskId,
-    message: `Handling HTTP DELETE by ID`
-  }
-
-  response
-    .status(200)
-    .json(data);
+router.delete('/:taskId', async (request, response) => {
+  const isDeleted = await TaskService.delete(request.params.taskId);
+  isDeleted
+    ? response.end()
+    : notFound(request, response)
 });
 
 module.exports = router;
