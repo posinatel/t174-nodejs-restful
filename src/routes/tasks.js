@@ -26,15 +26,14 @@ router.get('/:taskId', async (request, response) => {
     : notFound(request, response);
 });
 
-router.patch('/:taskId', (request, response) => {
-  const data = {
-    taskId: request.params.taskId,
-    message: `Handling HTTP PATCH by ID`
-  }
-
-  response
-    .status(200)
-    .json(data);
+router.patch('/:taskId', async (request, response) => {
+  const updatedTask = await TaskService.update(
+    request.params.taskId,
+    request.body
+  );
+  updatedTask
+    ? response.json(updatedTask)
+    : notFound(request, response);
 });
 
 router.delete('/:taskId', async (request, response) => {
