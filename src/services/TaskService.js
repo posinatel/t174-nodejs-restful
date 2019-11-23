@@ -3,9 +3,13 @@ let sequence = 0
 
 class TaskService {
 
-  static save(task) {
+  static add(newTask) {
     return new Promise((resolve) => {
-      task.id = ++sequence
+      const task = {
+        id: ++sequence,
+        done: newTask.done || false,
+        description: newTask.description
+      };
       db[task.id] = task
       resolve(task)
     })
@@ -18,13 +22,23 @@ class TaskService {
   }
 
   static getAll() {
-    const toArray = key => {
-      return db[key]
-    }
-
+    const toArray = key => db[key]
     return new Promise((resolve) => {
       const tasks = Object.keys(db).map(toArray)
       resolve(tasks)
+    })
+  }
+
+  static update(taskId, updatedTask) {
+    return new Promise(async (resolve) => {
+      const task = await TaskService.getById(taskId);
+      if(task) {
+        const hasValue = updatedTask.done != null
+        task.done = hasValue ? updatedTask.done : task.done;
+        task.description = updatedTask.description || task.description;
+        resolve(task);
+      }
+      resolve(null);
     })
   }
 
