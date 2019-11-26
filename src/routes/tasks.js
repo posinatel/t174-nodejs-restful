@@ -8,7 +8,7 @@ const notFound = require('../middleware/not-found');
 router.post('/', checkAuth, async (request, response) => {
   const task = await TaskService.add(request.body);
   response
-    .status(200)
+    .status(201)
     .json(task);
 });
 
